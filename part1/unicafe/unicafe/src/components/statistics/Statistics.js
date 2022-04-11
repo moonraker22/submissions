@@ -1,3 +1,5 @@
+import StatisticsLine from "../statisticsLine/StatisticsLine";
+
 const Statistics = (props) => {
   const { good, neutral, bad } = props;
   const totalFeedback = good + neutral + bad;
@@ -15,12 +17,12 @@ const Statistics = (props) => {
       <>
         <h2>Statistics</h2>
         <br />
-        <p>Good: {good}</p>
-        <p>Neutral: {neutral}</p>
-        <p>Bad: {bad}</p>
-        <p>All: {totalFeedback}</p>
-        <p>Average: {average}</p>
-        <p>Positive: {positive} %</p>
+        <StatisticsLine title="good" value={good} />
+        <StatisticsLine title="neutral" value={neutral} />
+        <StatisticsLine title="bad" value={bad} />
+        <StatisticsLine title="all" value={totalFeedback} />
+        <StatisticsLine title="average" value={average} />
+        <StatisticsLine title="positive" value={positive} />
       </>
     );
   }
