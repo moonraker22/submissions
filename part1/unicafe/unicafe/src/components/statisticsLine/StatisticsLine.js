@@ -1,9 +1,12 @@
 const StatisticsLine = ({ title, value }) => {
   return (
     <>
-      <p>
-        {title}: {value} {title === "positive" ? "%" : ""}
-      </p>
+      <tr>
+        <td>{title}</td>
+        <td>
+          {value} {title === "positive" ? "%" : ""}
+        </td>
+      </tr>
     </>
   );
 };
