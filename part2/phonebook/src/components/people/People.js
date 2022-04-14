@@ -1,7 +1,14 @@
 import useAxios from "../../util/useAxios";
 
-const People = ({ persons, filter, setPersons }) => {
+const People = ({
+  persons,
+  filter,
+  setPersons,
+  setMessage,
+  setMessageType,
+}) => {
   const deletePerson = (person) => {
+    console.log(person);
     const result = window.confirm(
       "Are you sure you want to delete this person?"
     );
@@ -12,8 +19,12 @@ const People = ({ persons, filter, setPersons }) => {
         .then((response) => {
           console.log(response.statusText);
           setPersons(persons.filter((p) => p.id !== id));
+          setMessage(`${person.name} was deleted`);
+          setMessageType("success");
         })
         .catch((error) => {
+          setMessage(`${person.name} was not deleted`);
+          setMessageType("error");
           console.log(error);
         });
     }
