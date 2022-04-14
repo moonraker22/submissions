@@ -1,6 +1,6 @@
 const CountryInfo = ({ country }) => {
   const languages = Object.values(country.languages);
-  console.log(languages);
+  console.log(country.latlng);
   return (
     <div>
       <h2>Country Info</h2>

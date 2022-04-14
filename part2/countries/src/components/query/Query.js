@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import CountryInfo from "../countryInfo/CountryInfo";
+import Weather from "../weather/Weather";
 
 const Query = () => {
   const [countries, setCountries] = useState([]);
@@ -71,6 +72,7 @@ const Query = () => {
           <CountryInfo country={countries[0]} />
         )}
         {showCountries && <CountryInfo country={country} />}
+        {showCountries && <Weather country={country} />}
       </ul>
     </div>
   );
