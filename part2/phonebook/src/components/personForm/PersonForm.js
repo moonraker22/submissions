@@ -1,4 +1,6 @@
 import { useState } from "react";
+import useAxios from "../../util/useAxios";
+
 const PersonForm = ({ setPersons, persons }) => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
@@ -17,13 +19,56 @@ const PersonForm = ({ setPersons, persons }) => {
     };
     const existingPerson = persons.find((person) => person.name === newName);
     if (existingPerson) {
-      alert(`${newName} is already added to phonebook`);
+      const result = window.confirm(
+        `${newName} is already added to phonebook would you like to change the number?`
+      );
+      if (result) {
+        const id = existingPerson.id;
+        console.log(id, existingPerson);
+        const updated = useAxios.update(id, newPerson);
+        console.log(updated);
+        updated
+          .then((response) => {
+            console.log(response.statusText);
+            setPersons(
+              persons.map((person) =>
+                person.id !== id
+                  ? person
+                  : {
+                      name: newName,
+                      number: newNumber,
+                      id: id,
+                    }
+              )
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            setNewName("");
+            setNewNumber("");
+            window.location.reload();
+          });
+      }
     } else {
       const id = Math.floor(Math.random() * 100000);
       setPersons([...persons, { ...newPerson, id }]);
+
+      const added = useAxios.add({ name: newName, number: newNumber });
+      added
+        .then((response) => {
+          console.log(response.statusText);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setNewName("");
+          setNewNumber("");
+          window.location.reload();
+        });
     }
-    setNewName("");
-    setNewNumber("");
   };
   return (
     <form onSubmit={submitHandler}>

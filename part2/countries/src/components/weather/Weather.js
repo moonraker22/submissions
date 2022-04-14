@@ -27,12 +27,12 @@ const Weather = (props) => {
       <div>
         <strong>Temperature:</strong> {weather && weather.main.temp}
       </div>
-      <p>
+      <div>
         <strong>Humidity:</strong> {weather && weather.main.humidity}
-      </p>
-      <p>
+      </div>
+      <div>
         <strong>Wind:</strong> {weather && weather.wind.speed}
-      </p>
+      </div>
       <img
         src={`http://openweathermap.org/img/w/${
           weather && weather.weather[0].icon
