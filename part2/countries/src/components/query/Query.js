@@ -3,6 +3,8 @@ import CountryInfo from "../countryInfo/CountryInfo";
 
 const Query = () => {
   const [countries, setCountries] = useState([]);
+  const [showCountries, setShowCountries] = useState(false);
+  const [country, setCountry] = useState({});
   const [query, setQuery] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -34,6 +36,7 @@ const Query = () => {
       setCountries([]);
     }
   }, [query]);
+
   return (
     <div>
       find countries{" "}
@@ -46,17 +49,28 @@ const Query = () => {
       <ul>
         {loading && <div>Loading...</div>}
         {error && <div>{error}</div>}
-        {query.length === 0 ? "please enter a country name" : ""}
+        {!query && "please enter a country name"}
         {countries.message && <div>{countries.message}</div>}
 
         {countries.length < 10
-          ? countries.map((country) => (
-              <li key={country.name.common}>{country.name.common}</li>
+          ? countries.map((country, index) => (
+              <li key={country.name.common}>
+                {country.name.common}
+                <input
+                  type="button"
+                  value={"show"}
+                  onClick={(e) => {
+                    setCountry(country);
+                    setShowCountries(true);
+                  }}
+                />
+              </li>
             ))
           : ""}
         {countries.length === 1 && !countries.message && (
           <CountryInfo country={countries[0]} />
         )}
+        {showCountries && <CountryInfo country={country} />}
       </ul>
     </div>
   );
